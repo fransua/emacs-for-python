@@ -438,7 +438,7 @@ If non-nil it binds:
 ================  ============================
 Key               Command
 ================  ============================
-M-/               rope-code-assist
+M-/ (S-Tab)       rope-code-assist
 C-c g             rope-goto-definition
 C-c d             rope-show-doc
 C-c f             rope-find-occurrences

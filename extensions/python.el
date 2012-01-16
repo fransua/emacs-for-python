@@ -249,9 +249,10 @@
     (define-key map "\C-c\C-tt" 'python-skeleton-try)
     (define-key map "\C-c\C-tw" 'python-skeleton-while)
     ;; Shell interaction
+    (define-key map "\C-c\!"   'run-python)
     (define-key map "\C-c\C-s" 'python-shell-send-string)
     (define-key map "\C-c\C-r" 'python-shell-send-region)
-    (define-key map "\C-\M-x" 'python-shell-send-defun)
+    (define-key map "\C-\M-x"  'python-shell-send-defun)
     (define-key map "\C-c\C-c" 'python-shell-send-buffer)
     (define-key map "\C-c\C-l" 'python-shell-send-file)
     (define-key map "\C-c\C-z" 'python-shell-switch-to-shell)
@@ -1357,8 +1358,10 @@ non-nil the buffer is shown."
           (with-current-buffer buffer
             (inferior-python-mode)
             (python-util-clone-local-variables current-buffer))))
-      (when pop
-        (pop-to-buffer proc-buffer-name))
+      (switch-to-buffer-other-window
+       (apply 'make-comint proc-name proc-buffer-name nil nil))
+      ;(when pop
+      ;  (pop-to-buffer proc-buffer-name))
       proc-buffer-name)))
 
 (defun run-python (dedicated cmd)

@@ -1,5 +1,6 @@
 (setq frame-title-format "%f")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; load gabi things
 (load-file "~/.emacs.d/epy-init.el")
 (add-to-list 'load-path "~/.emacs.d/") ;; tell where to load the various files
@@ -9,11 +10,15 @@
 (require 'epy-editing) ;; For configurations related to editing [optional]
 (require 'epy-bindings) ;; For my suggested keybindings [optional]
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (epy-setup-ipython)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-linum-mode 0)
 (display-time)
+(set-cursor-color "lightgrey")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;; general
 (custom-set-variables
   ;; custom-set-variables was added by Custom.
@@ -32,8 +37,8 @@
  '(tool-bar-mode nil nil (tool-bar))
  '(truncate-lines t))
 
-(set-cursor-color "lightgrey")
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; key-bindings
 (global-unset-key "\M-g")
 (global-set-key "\M-g" 'goto-line)
@@ -41,22 +46,8 @@
 (global-set-key [\s-\tab] 'rope-code-assist)
 (global-set-key [f6] 'other-window)
 
-;somthing that uses run-python
-(defadvice py-shell (around py-shell-with-history)
-  (if (comint-check-proc "*Python*")
-      ad-do-it
-    (setq comint-input-ring-file-name
-          (if (string-equal py-python-command ipython-command)
-              (concat (or (getenv "IPYTHONDIR") "~/.ipython") "/history")
-            (or (getenv "PYTHONHISTORY") "~/.python-history.py")))
-    (comint-read-input-ring t)
-    (let ((buf (current-buffer)))
-      ad-do-it
-      (unless py-shell-initial-switch-buffers
-        (switch-to-buffer-other-window buf)))))
-(ad-activate 'py-shell)
-
-
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+; esthetics
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
@@ -77,6 +68,7 @@
  '(show-paren-match ((((class color)) (:background "green2"))))
  '(show-paren-mismatch ((((class color)) (:background "red" :foreground "white")))))
  
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; perl replace
 (defun perl-replace (start end)
   "Replace a text pattern in a  region using perl expressions"
